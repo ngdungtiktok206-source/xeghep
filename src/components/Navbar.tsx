@@ -27,7 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div>
               <div className="flex items-center space-x-1.5">
-                <span className="text-xl font-bold tracking-tight text-slate-900 font-display">viastep</span>
+                <span className="text-xl font-bold tracking-tight text-slate-900 font-display">Viastep</span>
               </div>
               <p className="text-[11px] text-slate-500 hidden sm:block">Ghép xe liên tỉnh theo lộ tuyến thông minh</p>
             </div>
