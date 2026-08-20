@@ -1,0 +1,6 @@
+{
+  "name": "ViaStep",
+  "description": "Nền tảng ghép xe liên tỉnh thông minh dựa trên lộ tuyến, tối ưu hành lang di chuyển, độ lệch tuyến và tỷ lệ lấp đầy ghế",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
