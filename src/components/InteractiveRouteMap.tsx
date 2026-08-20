@@ -47,6 +47,46 @@ export const InteractiveRouteMap: React.FC<InteractiveRouteMapProps> = ({
             maxZoom: 18,
           }).addTo(map);
 
+          // Vietnamese labels for the two Vietnamese archipelagos.
+          // These are overlays so the app consistently displays the Vietnamese names
+          // regardless of the language used by the underlying map tile provider.
+          const createArchipelagoLabel = (label: string) =>
+            L.divIcon({
+              className: 'vietnamese-archipelago-label',
+              html: `
+                <div style="
+                  color: #0f172a;
+                  background: rgba(255,255,255,0.92);
+                  border: 1px solid rgba(15,23,42,0.22);
+                  border-radius: 6px;
+                  padding: 3px 7px;
+                  font-weight: 700;
+                  font-size: 12px;
+                  line-height: 1.2;
+                  white-space: nowrap;
+                  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+                  text-align: center;
+                ">${label}</div>
+              `,
+              iconSize: [0, 0],
+              iconAnchor: [0, 0],
+            });
+
+          // Approximate central coordinates of the archipelagos.
+          L.marker([16.5, 111.7], {
+            icon: createArchipelagoLabel('Quần đảo Hoàng Sa'),
+            interactive: false,
+            keyboard: false,
+            zIndexOffset: 1000,
+          }).addTo(map);
+
+          L.marker([10.5, 114.0], {
+            icon: createArchipelagoLabel('Quần đảo Trường Sa'),
+            interactive: false,
+            keyboard: false,
+            zIndexOffset: 1000,
+          }).addTo(map);
+
           leafletMapRef.current = map;
           if (isMounted) setMapLoaded(true);
         }
@@ -54,9 +94,10 @@ export const InteractiveRouteMap: React.FC<InteractiveRouteMapProps> = ({
         const map = leafletMapRef.current;
         if (!map) return;
 
-        // Clear existing custom layers
+        // Clear existing custom layers while preserving tile layers and the
+        // Vietnamese archipelago labels added during map initialization.
         map.eachLayer((layer: any) => {
-          if (!layer._url) {
+          if (!layer._url && !layer.options?.icon?.options?.className?.includes('vietnamese-archipelago-label')) {
             map.removeLayer(layer);
           }
         });
